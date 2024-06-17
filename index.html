@@ -5,16 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soapbox Caddie Laundry Service</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        .modal-dialog {
-            max-width: 500px;
-        }
-        
-        #phoneNumber:hover::placeholder {
-            color: #ffffff;
-        }
-    </style>
-
 </head>
 <body>
     <div class="text-center mb-4">
@@ -31,10 +21,8 @@
     </div>
 
      <!-- Login Popup Modal -->
-      <!-- Login Popup Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-dialog">
-
+     <div class="modal" id="loginModal">
+            <div class="modal-content">
                 <div class="modal-header">
                     <img src="/logo.PNG" alt="Laundry Service Logo" class="img-fluid" style="max-height: 150px;">         
                     <h5 class="modal-title">Soapbox Caddie SMS Login</h5>
@@ -46,7 +34,8 @@
                             <div class="form-group row">
                                 <label for="phoneNumber">Phone Number:</label>
                                 <div class="col-sm-8">
-                                    <input type="tel" class="form-control" id="phoneNumber" pattern="[0-9]{3}-[0-9]{3}[0-9]{4}" maxlength="12" placeholder="(___) ___-____" required>
+                                    <input type="tel" class="form-control" id="phoneNumber" pattern="[2-9]{3}[2-9]{3}[0-9]{4}" maxlength="12"  required>
+                                    <div class="invalid-feedback">Please enter a valid USA phone number.</div>
                                 </div>
     
                             </div>
@@ -73,10 +62,26 @@
                 event.preventDefault();
                 var phoneNumber = $('#phoneNumber').val();
 
+                // Remove non-digit characters from the phone number
+                var cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+                alert(cleanedPhoneNumber)
+                // Validate the phone number format
+                var phoneRegex = /^\d[10]}$/;
+                alert(phoneRegex.test(cleanedPhoneNumber.val()))
+                if (!phoneRegex.test(cleanedPhoneNumber)) {
+                    alert("bad")
+                    $('#phoneNumber').addClass('is-invalid');
+                    return;
+                }
+
+                // Phone number is valid, remove any previous invalid feedback
+                $('#phoneNumber').removeClass('is-invalid');
+
                 $.ajax({
                     url: '/api/phone',
                     method: 'POST',
-                    data: { phone: phoneNumber },
+                    data: { phone: cleanedPhoneNumber },
                     success: function(response) {
                         // Handle successful response from the server
                         console.log('Phone number sent successfully');
