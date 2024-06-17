@@ -65,12 +65,9 @@
                 // Remove non-digit characters from the phone number
                 var cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
 
-                alert(cleanedPhoneNumber)
                 // Validate the phone number format
                 var phoneRegex = /^\d[10]}$/;
-                alert(phoneRegex.test(cleanedPhoneNumber.val()))
                 if (!phoneRegex.test(cleanedPhoneNumber)) {
-                    alert("bad")
                     $('#phoneNumber').addClass('is-invalid');
                     return;
                 }
