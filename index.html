@@ -102,8 +102,8 @@
               
                 // Send API call to getcode endpoint
                 $.ajax({
-                    url: '/api/getcode',
-                    method: 'POST',
+                    url: 'https://77a8-216-66-36-36.ngrok-free.app/getcode?phone=' + cleanedPhoneNumber,
+                    method: 'GET',
                     data: { phone: cleanedPhoneNumber },
                     success: function(response) {
                         // Handle successful response from the server
@@ -126,8 +126,8 @@
 
                 // Send API call to verify the code
                 $.ajax({
-                    url: '/api/verifycode',
-                    method: 'POST',
+                    url: 'https://77a8-216-66-36-36.ngrok-free.app/getcode?phone=' + cleanedPhoneNumber + "&code=" + verificationCode,
+                    method: 'GET',
                     data: { code: verificationCode },
                     success: function(response) {
                         // Handle successful code verification
