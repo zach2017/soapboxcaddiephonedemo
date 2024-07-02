@@ -102,7 +102,7 @@
               
                 // Send API call to getcode endpoint
                 $.ajax({
-                    url: 'https://77a8-216-66-36-36.ngrok-free.app/getcode?phone=' + cleanedPhoneNumber,
+                    url: 'https://71da-2600-6c58-593f-a178-b975-85df-a3a9-83b9.ngrok-free.app/getcode?phone=' + cleanedPhoneNumber,
                     method: 'GET',
                     data: { phone: cleanedPhoneNumber },
                     success: function(response) {
@@ -126,7 +126,7 @@
 
                 // Send API call to verify the code
                 $.ajax({
-                    url: 'https://77a8-216-66-36-36.ngrok-free.app/getcode?phone=' + cleanedPhoneNumber + "&code=" + verificationCode,
+                    url: 'https://71da-2600-6c58-593f-a178-b975-85df-a3a9-83b9.ngrok-free.app/verify?phone=' + cleanedPhoneNumber + "&code=" + verificationCode,
                     method: 'GET',
                     data: { code: verificationCode },
                     success: function(response) {
