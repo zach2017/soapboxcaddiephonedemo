@@ -13,13 +13,26 @@
     </div>
     <div class="container mt-5">
         <h1>Welcome!</h1>
-        <p>Please select an option:</p>
+        <hr/>
         <div class="mt-4">
-            <a href="https://form.jotform.com/241614051823145" class="btn btn-primary btn-lg mr-3">In Home Signup</a>
-            <hr/>
-            <a href="https://form.jotform.com/241248584896169" class="btn btn-primary btn-lg mr-3">Mobile Pickup Signup</a>
-            <hr/>
-            <button id="loginButton" class="btn btn-success btn-lg">Returning Customer</button>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <form id="loginForm" class="form-inline">
+                        <div class="form-group row">
+                           
+                            <div class="col-sm-3">
+                                <label for="phoneNumber">Phone Number:</label>
+                                <input type="tel" class="form-control" id="phoneNumber"  maxlength="12"  placeholder="xxx-xxx-xxxx" required>
+                                <div class="invalid-feedback">Please enter a valid USA phone number.</div>
+                            </div>
+
+                        </div>
+                        <hr/>
+                        <button type="submit" class="btn btn-primary">Get Started</button>
+                    </form>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -35,7 +48,7 @@
                     <div class="modal-body">
                         <form id="loginForm">
                             <div class="form-group row">
-                                <label for="phoneNumber">Phone Number:</label>
+                                <label for="phoneNumber">Mobile Phone Number:</label>
                                 <div class="col-sm-8">
                                     <input type="tel" class="form-control" id="phoneNumber"  maxlength="12"  placeholder="xxx-xxx-xxxx" required>
                                     <div class="invalid-feedback">Please enter a valid USA phone number.</div>
@@ -140,13 +153,15 @@
                         if (response === 'approved') {
                             $('#result').html('Success: ' + response.message);
                             $('#codeModal').modal('hide');
-                            alert('Verification Successful!');
+                    
                             window.location.href="https://form.jotform.com/241248584896169"
                         } else {
                           // Handle error
                           alert('Verification failed Retry!');
                           errorMessage.textContent = 'Your verification is still pending. Please try again later.';
                           errorMessage.style.display = 'block';
+
+                           
                           $('#result').html('Error: ' + response.status);
                         }
                        
