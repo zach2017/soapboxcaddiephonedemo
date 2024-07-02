@@ -105,6 +105,7 @@
                     url: 'https://71da-2600-6c58-593f-a178-b975-85df-a3a9-83b9.ngrok-free.app/getcode?phone=' + cleanedPhoneNumber,
                     method: 'GET',
                     data: { phone: cleanedPhoneNumber },
+                    crossDomain: true,
                     success: function(response) {
                         // Handle successful response from the server
                         console.log('Code sent successfully');
@@ -129,6 +130,7 @@
                     url: 'https://71da-2600-6c58-593f-a178-b975-85df-a3a9-83b9.ngrok-free.app/verify?phone=' + cleanedPhoneNumber + "&code=" + verificationCode,
                     method: 'GET',
                     data: { code: verificationCode },
+                    crossDomain: true,
                     success: function(response) {
                         // Handle successful code verification
                         console.log('Code verified successfully');
