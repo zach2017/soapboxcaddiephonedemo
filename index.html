@@ -67,6 +67,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Verify Code</button>
                     </form>
+                    <div id="errorMessage" class="error-message mt-3"></div>
                 </div>
             </div>
         </div>
@@ -123,33 +124,31 @@
 
             $('#codeForm').submit(function(event) {
                 event.preventDefault();
-                var phoneNumber = $('#phoneNumber').val();
-
-// Remove non-digit characters from the phone number
-var cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
-
-// Validate the phone number format
-var phoneRegex = /^\d{10}$/;
-if (!phoneRegex.test(cleanedPhoneNumber)) {
-    $('#phoneNumber').addClass('is-invalid');
-    return;
-}
-
-// Phone number is valid, remove any previous invalid feedback
-$('#phoneNumber').removeClass('is-invalid');
-
+                var phoneNumber = '+1' + $('#phoneNumber').val();
                 var verificationCode = $('#verificationCode').val();
-
+                const errorMessage = document.getElementById('errorMessage');
+                const twillourl = 'https://71da-2600-6c58-593f-a178-b975-85df-a3a9-83b9.ngrok-free.app/verify?phone=' + phoneNumber + "&code=" + verificationCode
+                console.log(twillourl)
                 // Send API call to verify the code
                 $.ajax({
-                    url: 'https://71da-2600-6c58-593f-a178-b975-85df-a3a9-83b9.ngrok-free.app/verify?phone=' + cleanedPhoneNumber + "&code=" + verificationCode,
+                    url: twillourl,
                     method: 'GET',
                     data: { code: verificationCode },
                     crossDomain: true,
                     success: function(response) {
                         // Handle successful code verification
-                        console.log('Code verified successfully');
-                        $('#codeModal').modal('hide');
+                        if (response === 'approved') {
+                            $('#result').html('Success: ' + response.message);
+                            $('#codeModal').modal('hide');
+                            alert('Verification Successful!');
+                        } else {
+                          // Handle error
+                          alert('Verification failed Retry!');
+                          errorMessage.textContent = 'Your verification is still pending. Please try again later.';
+                          errorMessage.style.display = 'block';
+                          $('#result').html('Error: ' + response.status);
+                        }
+                       
                         // Perform further actions or redirect as needed
                     },
                     error: function(xhr, status, error) {
