@@ -123,6 +123,21 @@
 
             $('#codeForm').submit(function(event) {
                 event.preventDefault();
+                var phoneNumber = $('#phoneNumber').val();
+
+// Remove non-digit characters from the phone number
+var cleanedPhoneNumber = phoneNumber.replace(/\D/g, '');
+
+// Validate the phone number format
+var phoneRegex = /^\d{10}$/;
+if (!phoneRegex.test(cleanedPhoneNumber)) {
+    $('#phoneNumber').addClass('is-invalid');
+    return;
+}
+
+// Phone number is valid, remove any previous invalid feedback
+$('#phoneNumber').removeClass('is-invalid');
+
                 var verificationCode = $('#verificationCode').val();
 
                 // Send API call to verify the code
